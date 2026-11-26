@@ -14,7 +14,7 @@ It uses Retrieval-Augmented Generation (RAG): a relevant passage is selected fro
 > Studentia is a limited academic prototype, not an official administrative service. Users must verify important information with the relevant authorities.
 
 > [!NOTE]
-> This repository is a **fork** of [MELI0-dot/IA-assistant](https://github.com/MELI0-dot/IA-assistant). See [Credits](#17-credits) for details.
+> This repository is a **clone** of [MELI0-dot/IA-assistant](https://github.com/MELI0-dot/IA-assistant). See [Credits](#17-credits) for details.
 
 ### Highlights
 
