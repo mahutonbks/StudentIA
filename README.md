@@ -1,18 +1,66 @@
 # Studentia — AI Administrative Assistant
 
-Studentia is an academic prototype that helps international students in France find information about administrative procedures.
+[![Tests](https://github.com/mahutonbks/StudentIA/actions/workflows/tests.yml/badge.svg)](https://github.com/mahutonbks/StudentIA/actions/workflows/tests.yml)
+![Python](https://img.shields.io/badge/python-3.12-blue)
+![FastAPI](https://img.shields.io/badge/FastAPI-SSE-009688)
+![Ollama](https://img.shields.io/badge/LLM-Ollama%20%C2%B7%20qwen2.5%3A3b-black)
+![Version](https://img.shields.io/badge/version-3.0.0-informational)
+
+Studentia is an academic prototype that helps international students in France find information about administrative procedures (residence permit, health insurance, housing, grants, banking, work…).
 
 It uses Retrieval-Augmented Generation (RAG): a relevant passage is selected from an official document database before an answer is generated. Since version 3.0, answers are **always in French**, whatever the language of the question, and are streamed token by token. The assistant remembers the conversation and adapts to the student's nationality. When a question is too vague, it may ask one clarifying question first.
 
-**Important:** Studentia is a limited academic prototype, not an official administrative service. Users must verify important information with the relevant authorities.
+> [!IMPORTANT]
+> Studentia is a limited academic prototype, not an official administrative service. Users must verify important information with the relevant authorities.
+
+> [!NOTE]
+> This repository is a **fork** of [MELI0-dot/IA-assistant](https://github.com/MELI0-dot/IA-assistant). See [Credits](#17-credits) for details.
+
+### Highlights
+
+- 🔎 **Hybrid retrieval** (85 % semantic + 15 % lexical) over 15 sourced documents, with **abstention** when nothing is reliable enough
+- 🧾 **Grounding check**: every figure in the answer must appear in the source passage
+- 💬 **Conversation memory** and **student profile** (EU / non-EU, Algerian-specific rules)
+- ⚡ **Streaming** answers over Server-Sent Events
+- 🐳 **One-command Docker setup** (Ollama + model pull + API + frontend)
+- ✅ **CI** on every push (corpus validation + 99 offline assertions)
+
+### Table of contents
+
+1. [Quick start](#1-quick-start)
+2. [Current scope](#2-current-scope)
+3. [Technologies](#3-technologies)
+4. [Architecture](#4-architecture)
+5. [Retrieval](#5-retrieval)
+6. [Acceptance and abstention](#6-acceptance-and-abstention)
+7. [Answer generation and grounding check](#7-answer-generation-and-grounding-check)
+8. [Conversation memory and student profile](#8-conversation-memory-and-student-profile)
+9. [Document database](#9-document-database)
+10. [Configuration](#10-configuration)
+11. [Embedding cache](#11-embedding-cache)
+12. [API](#12-api)
+13. [Tests](#13-tests)
+14. [Known limitations](#14-known-limitations)
+15. [Next steps](#15-next-steps)
+16. [Project structure](#16-project-structure)
+17. [Credits](#17-credits)
 
 ---
 
 ## 1. Quick start
 
+### Prerequisites
+
+- [Python 3.12](https://www.python.org/downloads/)
+- [Ollama](https://ollama.com/download) running locally (or reachable over the network, see section 10)
+- About 2 GB of free disk space for the models
+- Optional: [Docker](https://docs.docker.com/get-docker/) with Compose
+
+### Local install
+
 ```powershell
-git clone https://github.com/MELI0-dot/IA-assistant.git
-cd IA-assistant
+git clone https://github.com/mahutonbks/StudentIA.git
+cd StudentIA
 
 python -m venv .venv
 .\.venv\Scripts\Activate.ps1
@@ -477,7 +525,7 @@ RAG provides documentary context. It does not guarantee factual accuracy.
 ## 16. Project structure
 
 ```text
-IA-assistant/
+StudentIA/
 |
 |-- data/                     Documents with metadata headers
 |-- frontend/                 index.html, style.css, app.js
@@ -503,3 +551,17 @@ IA-assistant/
 ```
 
 Role notes are in `docs/`. Migration details from the previous version are in `docs/CHANGELOG.md`.
+
+---
+
+## 17. Credits
+
+This project is a fork of **[MELI0-dot/IA-assistant](https://github.com/MELI0-dot/IA-assistant)**. Many thanks to its original authors for the initial work on which Studentia is built.
+
+To pull future changes from the original project:
+
+```powershell
+git remote add upstream https://github.com/MELI0-dot/IA-assistant.git
+git fetch upstream
+git merge upstream/main
+```
