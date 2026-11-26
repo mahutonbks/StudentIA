@@ -1,0 +1,7 @@
+__pycache__/
+*.pyc
+.cache/
+.git/
+*.pdf
+*.docx
+node_modules/

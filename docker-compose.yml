@@ -1,0 +1,58 @@
+services:
+  ollama:
+    image: ollama/ollama:latest
+    container_name: studentia-ollama
+    volumes:
+      - ollama_data:/root/.ollama
+    ports:
+      - "11434:11434"
+    healthcheck:
+      # curl n'est pas installe dans l'image ollama/ollama : on utilise
+      # le client ollama, qui interroge le serveur local.
+      test: ["CMD", "ollama", "list"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  ollama-init:
+    image: ollama/ollama:latest
+    depends_on:
+      ollama:
+        condition: service_healthy
+    environment:
+      - OLLAMA_HOST=http://ollama:11434
+    entrypoint: >
+      sh -c "
+        ollama pull nomic-embed-text &&
+        ollama pull qwen2.5:3b
+      "
+    restart: "no"
+
+  studentia-api:
+    build: .
+    container_name: studentia-api
+    ports:
+      - "8000:8000"
+    volumes:
+      - ./data:/app/data
+      - embedding_cache:/app/.cache
+    environment:
+      - OLLAMA_HOST=http://ollama:11434
+    depends_on:
+      ollama-init:
+        condition: service_completed_successfully
+    restart: unless-stopped
+
+  studentia-frontend:
+    image: nginx:alpine
+    container_name: studentia-frontend
+    ports:
+      - "5500:80"
+    volumes:
+      - ./frontend:/usr/share/nginx/html:ro
+    depends_on:
+      - studentia-api
+
+volumes:
+  ollama_data:
+  embedding_cache:

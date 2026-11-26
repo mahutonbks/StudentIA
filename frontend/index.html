@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Studentia — Student Administrative Assistant</title>
+
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <header class="navbar">
+        <a href="#" class="brand">
+            <span class="brand-icon">S</span>
+
+            <span class="brand-text">
+                <strong>Studentia</strong>
+                <small>Administrative Assistant</small>
+            </span>
+        </a>
+
+        <div class="status">
+            <span class="status-dot"></span>
+            Assistant available
+        </div>
+    </header>
+
+
+    <main>
+
+        <!-- HERO -->
+        <section class="hero">
+
+            <div class="hero-badge">
+                Supporting international students in France
+            </div>
+
+            <h1>
+                Your student paperwork,
+                <span>made simple.</span>
+            </h1>
+
+            <p class="hero-description">
+                Ask your administrative questions and get clear answers
+                based on official sources.
+            </p>
+
+
+            <!-- SUGGESTED QUESTIONS -->
+            <div class="suggestions">
+
+                <button
+                    class="suggestion-card"
+                    data-question="When should I renew my student residence permit?"
+                >
+                    <span class="card-number">01</span>
+
+                    <span class="card-content">
+                        <strong>Residence permit</strong>
+                        <small>When should I apply for renewal?</small>
+                    </span>
+
+                    <span class="card-arrow">→</span>
+                </button>
+
+
+                <button
+                    class="suggestion-card"
+                    data-question="How do I validate my student VLS-TS after arriving in France?"
+                >
+                    <span class="card-number">02</span>
+
+                    <span class="card-content">
+                        <strong>VLS-TS validation</strong>
+                        <small>What should I do after arrival?</small>
+                    </span>
+
+                    <span class="card-arrow">→</span>
+                </button>
+
+
+                <button
+                    class="suggestion-card"
+                    data-question="What financial resources do I need as an international student in France?"
+                >
+                    <span class="card-number">03</span>
+
+                    <span class="card-content">
+                        <strong>Financial resources</strong>
+                        <small>How much money must I demonstrate?</small>
+                    </span>
+
+                    <span class="card-arrow">→</span>
+                </button>
+
+            </div>
+        </section>
+
+
+        <!-- ASSISTANT -->
+        <section class="assistant-section">
+
+            <div class="assistant-card">
+
+                <div class="assistant-header">
+
+                    <div>
+                        <span class="section-label">
+                            ASSISTANT
+                        </span>
+
+                        <h2>
+                            How can I help you?
+                        </h2>
+                    </div>
+
+                    <span class="official-badge">
+                        Official sources
+                    </span>
+
+                </div>
+
+
+                <!-- CONVERSATION -->
+                <div
+                    id="conversation"
+                    class="conversation"
+                    aria-live="polite"
+                >
+
+                    <div class="welcome-message">
+
+                        <div class="assistant-avatar">
+                            S
+                        </div>
+
+                        <div class="message assistant-message">
+
+                            <strong>Hello!</strong>
+
+                            <p>
+                                I can help you find information about
+                                administrative procedures for students
+                                in France.
+                            </p>
+
+                            <p>
+                                Ask your question below or choose one
+                                of the suggested topics.
+                            </p>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <!-- PROFIL : rempli avant la premiere question -->
+                <form
+                    id="profil-form"
+                    class="profil-form"
+                >
+                    <p class="profil-intro">
+                        Avant de commencer, indique ton profil :
+                        les règles changent selon la nationalité.
+                    </p>
+
+                    <div class="profil-champs">
+                        <label>
+                            <span>Pays d'origine (nationalité)</span>
+                            <input
+                                id="profil-pays"
+                                type="text"
+                                maxlength="80"
+                                placeholder="ex. Maroc, Italie, Algérie"
+                                autocomplete="country-name"
+                                required
+                            >
+                        </label>
+                    </div>
+
+                    <button id="profil-bouton" type="submit">
+                        Valider mon profil
+                    </button>
+                </form>
+
+                <p id="profil-resume" class="profil-resume hidden"></p>
+
+
+                <!-- LOADING -->
+                <div
+                    id="loading"
+                    class="loading hidden"
+                >
+                    <span></span>
+                    <span></span>
+                    <span></span>
+
+                    <p>
+                        Recherche dans les sources officielles…
+                    </p>
+                </div>
+
+
+                <!-- FORM -->
+                <form
+                    id="question-form"
+                    class="question-form"
+                >
+
+                    <label
+                        for="question-input"
+                        class="sr-only"
+                    >
+                        Your question
+                    </label>
+
+                    <textarea
+                        id="question-input"
+                        rows="1"
+                        maxlength="500"
+                        placeholder="Pose ta question administrative…"
+                        required
+                    ></textarea>
+
+                    <button
+                        id="send-button"
+                        type="submit"
+                    >
+                        <span>Send</span>
+                        <span class="send-arrow">→</span>
+                    </button>
+
+                </form>
+
+
+                <div class="assistant-footer">
+
+                    <span>
+                        Answers are generated using the prototype's
+                        document database.
+                    </span>
+
+                    <span>
+                        Always verify important information
+                        with the relevant official authorities.
+                    </span>
+
+                </div>
+
+            </div>
+
+        </section>
+
+    </main>
+
+
+    <footer class="page-footer">
+        <p>
+            Studentia — Academic prototype of an administrative
+            assistant for international students
+        </p>
+    </footer>
+
+
+    <script src="app.js"></script>
+
+</body>
+</html>

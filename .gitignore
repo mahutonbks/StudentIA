@@ -1,0 +1,17 @@
+# Environnement Python local
+.venv/
+
+# Fichiers temporaires Python
+__pycache__/
+*.pyc
+
+# Secrets et cles API
+.env
+.env.*
+
+# Modeles IA telecharges
+*.gguf
+*.safetensors
+
+# Cache d embeddings (regenere automatiquement)
+.cache/
