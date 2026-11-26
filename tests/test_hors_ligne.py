@@ -324,8 +324,22 @@ def tester_recherche_complete():
         "les resultats sont tries par score decroissant",
     )
 
+    # Les vecteurs factices donnent des similarites arbitraires qui
+    # peuvent depasser le signal lexical (0.85 contre 0.15). Pour tester
+    # ce seul signal, on classe le temps d'un appel avec un poids
+    # semantique nul.
+    poids_initiaux = (config.POIDS_SEMANTIQUE, config.POIDS_LEXICAL)
+    config.POIDS_SEMANTIQUE, config.POIDS_LEXICAL = 0.0, 1.0
+
+    try:
+        classement_lexical = recherche.rechercher_passages(
+            "renouvellement de mon titre"
+        )
+    finally:
+        config.POIDS_SEMANTIQUE, config.POIDS_LEXICAL = poids_initiaux
+
     verifier(
-        resultats[0]["nom"] == "renouvellement_etudiant.txt",
+        classement_lexical[0]["nom"] == "renouvellement_etudiant.txt",
         "le document attendu est premier grace au signal lexical",
     )
 

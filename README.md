@@ -448,7 +448,7 @@ python tests/test_hors_ligne.py
 
 99 assertions covering metadata parsing, chunking, lexical scoring, the acceptance rule, the cache and the grounding check, plus (since 3.0) the system prompt and message layout, EU filtering, the Algerian flag, sessions, clarification and the SSE stream. Embeddings and the streaming generator are replaced by deterministic fake functions, so the whole pipeline is exercised without Ollama. This suite runs in GitHub Actions on every push.
 
-**Known failure:** one assertion, "le document attendu est premier grâce au signal lexical", fails. It was already failing before version 3.0. The fake embeddings are random-looking vectors, and since the corpus grew they give `carte_sejour_pluriannuelle` a higher semantic score (0.266) than `renouvellement_etudiant` (0.105), which outweighs the lexical signal. The test needs either a less fragile question or a fake embedding with no semantic component.
+The assertion "le document attendu est premier grâce au signal lexical" ranks passages with the semantic weight temporarily set to 0. The fake embeddings are random-looking vectors: with the normal 0.85 weight, they gave `carte_sejour_pluriannuelle` a higher semantic score (0.266) than `renouvellement_etudiant` (0.105), which outweighed the lexical signal and made the test fail.
 
 ### Online — requires Ollama and both models
 
